@@ -17,6 +17,7 @@ router.get('/authenticate/google/cb', users.doLoginWithGoogle)
 
 router.get('/posts', sec.auth, posts.list)
 router.post('/posts', sec.auth, upload.single('image'), posts.create)
+router.put('/posts/:id', sec.auth, sec.postOwner, upload.single('image'), posts.edit)
 router.delete('/posts/:id', sec.auth, sec.postOwner, posts.delete)
 router.post('/posts/:id/like', sec.auth, posts.like)
 router.post('/posts/:id/comments', sec.auth, posts.createComment)

@@ -9,8 +9,8 @@ MongoMemoryServer.create()
     useCreateIndex: true,
     useUnifiedTopology: true
   }))
-  .then(() =>
-    console.info(`Successfully connected to the database`)
+  .then((value) =>
+    console.info(`Successfully connected to the database ${value.connection.host}:${value.connection.port} `)
   )
   .catch((error) => {
     console.error("An error occurred trying to connect to the database", error);
