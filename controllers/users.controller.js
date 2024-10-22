@@ -1,6 +1,7 @@
 const createError = require('http-errors');
 const User = require('../models/user.model');
 const passport = require('passport');
+const jwt = require('../config/jwt.config')
 
 module.exports.create = (req, res, next) => {
   const data = { name, username, bio, private, password } = req.body
@@ -52,7 +53,8 @@ module.exports.login = (req, res, next) => {
     } else {
       req.login(user, error => {
         if (error) next(error)
-        else res.json(user)
+        
+        else res.json(jwt.generateJWT(user))
       })
     }
   })(req, res, next);

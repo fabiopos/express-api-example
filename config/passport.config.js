@@ -8,6 +8,7 @@ passport.serializeUser((user, next) => {
   next(null, user.id);
 });
 
+
 passport.deserializeUser((id, next) => {
   User.findById(id)
     .then(user => next(null, user))
@@ -54,10 +55,10 @@ passport.use('google-auth', new GoogleStrategy({
 }));
 
 passport.use('local-auth', new LocalStrategy({
-  usernameField: 'username',
+  usernameField: 'email',
   passwordField: 'password'
-}, (username, password, next) => {
-  User.findOne({ username })
+}, (email, password, next) => {
+  User.findOne({ email })
     .then(user => {
       if (!user) {
         next(null, null, { message: 'Invalid username or password' })
