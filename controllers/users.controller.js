@@ -8,14 +8,24 @@ module.exports.create = (req, res, next) => {
 
   User.create({
     ...data,
+    active: false,
     avatar: req.file?.path
   })
-    .then(user => res.status(201).json(user))
+    .then(user => res.status(201).json(`Your account has been created, click in this link to activate it: http://localhost:8000/api/users/validate/${user.id}`))
     .catch(next)
 }
 
 module.exports.get = (req, res, next) => {
   User.findById(req.params.id)
+    .then(user => res.status(200).json(user))
+    .catch(next)
+}
+
+module.exports.validate = (req, res, next) => {
+  const { id } = req.params;
+
+  
+  User.findByIdAndUpdate(id, { active: true }, { new: true })
     .then(user => res.status(200).json(user))
     .catch(next)
 }
@@ -53,7 +63,6 @@ module.exports.login = (req, res, next) => {
     } else {
       req.login(user, error => {
         if (error) next(error)
-        
         else res.json(jwt.generateJWT(user))
       })
     }

@@ -16,11 +16,11 @@ const userSchema = new Schema(
       unique: true,
       match: [EMAIL_PATTERN, "must be a valid email"],
     },
-    username: {
-      type: String,
-      // required: "username is required",
-      // unique: true,
-    },
+    // username: {
+    //   type: String,
+    //   // required: "username is required",
+    //   // unique: true,
+    // },
     bio: {
       type: String,
       maxlength: 200,

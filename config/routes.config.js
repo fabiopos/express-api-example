@@ -9,6 +9,7 @@ router.post('/users', upload.single('avatar'), users.create)
 router.get('/users/:id', sec.auth, users.get)
 router.patch('/users/:id', sec.auth, sec.self, upload.single('avatar'), users.update)
 router.delete('/users/:id', sec.auth, sec.self, users.delete)
+router.get('/users/validate/:id', users.validate)
 
 router.post('/login', users.login)
 router.post('/logout', sec.auth, users.logout)
